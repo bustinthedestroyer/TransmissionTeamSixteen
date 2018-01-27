@@ -1,57 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using System.Collections.Generic;
 
-public class MorseCode : MonoBehaviour {
+public static class MorseCode {
 
-	public Text TextMorseCode;
-	public InputField InputEnglish;
-
-	public AudioSource SoundDot;
-	public AudioSource SoundDash;
-
-
-	void Start () {
+	static MorseCode(){
 		InitialiseDictionary();
 	}
 
-	public void Translate(){
-		string TheMorseCode = translate(InputEnglish.text); 
-		TextMorseCode.text = TheMorseCode;
-		StartCoroutine(PlayCode(TheMorseCode));
-	}
-
-	public float CodePause;
-	IEnumerator PlayCode(string codeToPlay){
-
-		List<char> codeList = new List<char>(codeToPlay.ToCharArray());
-		Debug.Log(codeList);
-		foreach(char character in codeList){
-			if(character == '.'){
-				SoundDot.Play();
-				yield return StartCoroutine(waitForSound(SoundDot));
-			}else if(character == '−'){
-				SoundDash.Play();
-				yield return StartCoroutine(waitForSound(SoundDash));
-			}
-            yield return new WaitForSeconds(CodePause);
-		}
-	}
-
-	IEnumerator waitForSound(AudioSource sound){
-        while (sound.isPlaying)
-        {
-            yield return null;
-        }
-	}
-
-	
-
 	static Dictionary<char, string> translator;
 
-	private static void InitialiseDictionary()
+	public static void InitialiseDictionary()
 	{
 		char dot = '.';
 		char dash = '−';
@@ -97,7 +55,7 @@ public class MorseCode : MonoBehaviour {
 		};
 	}
 
-	private static string translate(string input)
+	public static string EnglishToMorseCode(string input)
 	{
 		System.Text.StringBuilder sb = new System.Text.StringBuilder();
 		foreach(char character in input)
