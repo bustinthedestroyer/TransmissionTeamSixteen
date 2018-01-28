@@ -12,7 +12,7 @@ public static class MorseCode {
 	public static void InitialiseDictionary()
 	{
 		char dot = '.';
-		char dash = '−';
+		char dash = '-';
 
 		translator = new Dictionary<char, string>()
 		{
@@ -57,6 +57,7 @@ public static class MorseCode {
 
 	public static string EnglishToMorseCode(string input)
 	{
+		input = input.ToLower();
 		System.Text.StringBuilder sb = new System.Text.StringBuilder();
 		foreach(char character in input)
 		{
@@ -71,6 +72,6 @@ public static class MorseCode {
 				sb.Append(character + " ");
 			}
 		}
-		return sb.ToString();
+		return sb.ToString().TrimEnd();
 	}
 }
